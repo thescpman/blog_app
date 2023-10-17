@@ -1,0 +1,26 @@
+{% extends 'blog_app/base.html' %}
+
+{% block page_header %}
+    <h1>Blogs</h1>
+{% endblock page_header %}
+{% block content %}
+  
+  <a href="{% url 'blog_app:newblog' %}">Add a new Blog</a>
+
+  
+  {% for blog in blogs %}
+  <div class="card mb-3">
+    <!-- Card header with timestamp and edit link -->
+    <h4 class="card-header">
+      {{ blog.date_added|date:'M d, Y H:i' }}
+      <small><a href="{% url 'blog_app:edit_blog' blog.id %}">
+        edit blog</a></small>
+    </h4>
+    <!-- Card body with entry text -->
+    <div class="card-body">{{ blog.name|linebreaks }}</div>
+  </div>
+  {% empty %}
+    <p>There are no blogs yet</p>
+  {% endfor %}
+  
+{% endblock content %}
